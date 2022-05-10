@@ -1,15 +1,94 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
+:root {
+  --primary-color: #34444f;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
+  background: rgb(22,255,223);
+  background: radial-gradient(circle, rgba(22,255,223,1) 0%, rgba(93,196,247,1) 74%);
+  color: var(--primary-color);
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   margin: 0;
+}
+
+.draggable-list {
+  color: var(--primary-color);
+  width: 400px;
+  list-style-type: none;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.draggable-list li {
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex: 1;
+}
+
+.draggable-list li:not(:last-of-type) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.draggable-list .number {
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+.draggable-list li.over .draggable {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.draggable-list .language-name {
+  margin: 0 20px 0 0;
+}
+
+.draggable-list li.right .language-name {
+  color: #228d47;
+}
+
+.draggable-list li.wrong .language-name {
+  color: #ff3838;
+}
+
+.draggable {
+  cursor: grab;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.check-btn {
+  cursor: pointer;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+}
+
+.check-btn:active {
+  transform: scale(0.97);
+}
+
+.check-btn:focus {
+  outline: none;
 }
