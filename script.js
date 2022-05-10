@@ -79,7 +79,21 @@ function createList() {
 }
 
 
-// Swap list item places
+// Check the order of list items
+function checkOrder(event) {
+  listItems.forEach((listItem, index) => {
+    const languageName = listItem.querySelector('.draggable').textContent.trim();
+    if(languageName !== programmingLanguages[index]) {
+      listItem.classList.add('wrong');
+    } else {
+      listItem.classList.remove('wrong');
+      listItem.classList.add('right');
+    }
+  });
+}
+
+
+// Swap list item that are drag and drop
 function swapItems(fromIndex, toIndex) {
   const itemOne = listItems[fromIndex].querySelector('.draggable');
   const itemTwo = listItems[toIndex].querySelector('.draggable');
@@ -121,7 +135,6 @@ function dragDrop() {
 }
 
 
-
 // Add event Listeners to Drag and Drop Events
 function addEventListeners() {
   const draggables = document.querySelectorAll('.draggable');
@@ -138,3 +151,6 @@ function addEventListeners() {
     listItem.addEventListener('dragleave', dragLeave);
   });
 }
+
+// Event Listeners
+check.addEventListener('click', checkOrder);
