@@ -24,6 +24,7 @@ let dragStartIndex;
 createList();
 
 
+// Return a passed in array in randomized order
 function scrambleArray(array) {
   return array
     .map(item => ({ value: item, sort: Math.random() }))
@@ -32,6 +33,7 @@ function scrambleArray(array) {
 }
 
 
+// Create list item from an array item
 function createListItem(text, index) {
   const listItem = document.createElement('li');
   listItem.setAttribute('data-index', index);
@@ -72,4 +74,67 @@ function createList() {
       // Insert into DOM
       draggableList.appendChild(listItem);
     });
+  
+  addEventListeners();
+}
+
+
+// Swap list item places
+function swapItems(fromIndex, toIndex) {
+  const itemOne = listItems[fromIndex].querySelector('.draggable');
+  const itemTwo = listItems[toIndex].querySelector('.draggable');
+  listItems[fromIndex].appendChild(itemTwo);
+  listItems[toIndex].appendChild(itemOne);
+}
+
+
+function dragStart() {
+  //console.log('event', 'dragstart');
+  dragStartIndex = Number(this.closest('li').getAttribute('data-index'));
+  
+}
+
+
+function dragEnter() {
+  //console.log('event', 'dragenter');
+  this.classList.add('over');
+}
+
+
+function dragLeave() {
+  //console.log('event', 'dragleave');
+  this.classList.remove('over');
+}
+
+
+function dragOver(event) {
+  //console.log('event', 'dragover');
+  event.preventDefault();
+}
+
+
+function dragDrop() {
+  //console.log('event', 'drop');
+  const dragEndIndex = Number(this.getAttribute('data-index'));
+  swapItems(dragStartIndex, dragEndIndex);
+  this.classList.remove('over');
+}
+
+
+
+// Add event Listeners to Drag and Drop Events
+function addEventListeners() {
+  const draggables = document.querySelectorAll('.draggable');
+  const dragListItems = document.querySelectorAll('.draggable-list li');
+
+  draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', dragStart);
+  });
+
+  dragListItems.forEach(listItem => {
+    listItem.addEventListener('dragover', dragOver);
+    listItem.addEventListener('drop', dragDrop);
+    listItem.addEventListener('dragenter', dragEnter);
+    listItem.addEventListener('dragleave', dragLeave);
+  });
 }
